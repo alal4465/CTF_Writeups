@@ -1,6 +1,6 @@
 
 # LowDeep[EASY]
-LowDeep was an easy challange at the Insomni'hack teaser 2020.   
+LowDeep was an introductory-level challange at the Insomni'hack teaser 2020.   
 We are presented with a simple web app that allows us to ping a host.  
 Trying simple command injection with ';' we see there is no filtering.  
 (Note the print-flag file)
