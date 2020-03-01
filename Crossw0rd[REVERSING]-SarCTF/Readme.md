@@ -3,7 +3,6 @@
 Was a challange at the SarCTF in the reversing category.
 The program gets a password and validates it.
 ![‏‏צילום מסך (42)](https://user-images.githubusercontent.com/60041914/74608994-5cf1a400-50ee-11ea-81fe-b5a6c2ea28ff.png)
-Input is read with _scanf(vulnerable to a buffer overflow) with eax set to 0.   
 We can see that the value of eax after some function will determine the success of the validation.   
 
 ![‏‏צילום מסך (43)](https://user-images.githubusercontent.com/60041914/74608999-60852b00-50ee-11ea-9c70-5a091f7ec4a0.png)
