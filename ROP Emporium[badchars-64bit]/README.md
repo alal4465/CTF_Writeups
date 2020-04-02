@@ -32,9 +32,10 @@ plan in detail:
 1.xor the bad chars in our string with a key     
 2.use "pop r12 ; pop r13 ; ret" to set r12 to the string, r13 the desired address           
 3.use "mov qword ptr [r13], r12 ; ret" to write the string to memory      
-for each xored char:      
-     4.use "pop r14 ; pop r15 ; ret" to set r14 to the key,r15 to the address of the char       
-     5.use "xor byte ptr [r15], r14b ; ret" to xor them       
+preform step 4,5 for each xored char:
+4.use "pop r14 ; pop r15 ; ret" to set r14 to the key,r15 to the address of the char       
+5.use "xor byte ptr [r15], r14b ; ret" to xor them  
+     
 6.use "pop rdi ; ret" to point rdi to our decrypted string in memory      
 7.call system    
 8.profit????    
