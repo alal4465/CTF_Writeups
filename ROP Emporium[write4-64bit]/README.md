@@ -8,10 +8,10 @@ we are tasked with writing our string to some memory address, setting edi to tha
 (for some backround info feel free to check out some of my writeups for the previous challanges in the series)
    
 using ROPgadget we find some interesting gadgets:   
-```nasm
-0x0000000000400821 : mov dword ptr [rsi], edi , ret
-0x0000000000400893 : pop rdi , ret
-0x0000000000400891 : pop rsi , pop r15 , ret
+```assembly_x86
+0x0000000000400821 : mov dword ptr [rsi], edi ; ret
+0x0000000000400893 : pop rdi ; ret
+0x0000000000400891 : pop rsi ; pop r15 ; ret
 ```
 "pop rdi , ret" could be used to set rdi.  
      
