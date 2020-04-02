@@ -12,7 +12,7 @@ here is the original call to system.
 we see that edi is used as a pointer to the command.   
 so our goal is clear. we need to craft a rop chain that puts the address of "cat flag.txt"    
 in edi and calls system.          
-we find a useful gadget:
+using ROPgadget we find a useful gadget:
 ```nasm
 0x0000000000400883 : pop rdi ; ret
 ```
