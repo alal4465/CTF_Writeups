@@ -16,7 +16,6 @@ READ_AT_RAX=0x00400b05
 PIVOT=0x00400b02
 GOT_FOOTHOLD=0x00602048
 PLT_FOOTHOLD=0x00400850
-FUNC_OFFSET=0x0000000
 
 r=process("./pivot")
 output=r.recvuntil(b"Send your")
