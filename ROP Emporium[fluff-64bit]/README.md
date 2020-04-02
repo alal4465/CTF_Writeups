@@ -2,9 +2,11 @@
 
 the goal of this challange is very similar to the write4 one.(https://github.com/alal4465/CTF_Writeups/tree/master/ROP%20Emporium%5Bwrite4-64bit%5D)   
       
+![hathala](https://user-images.githubusercontent.com/60041914/78301733-34105b80-7542-11ea-9c08-939b18552714.png)
+      
 we need to write a string to memory,    
-point rdi at it    
-and ute system with the string as a parameter.     
+point rdi at it,    
+and call system with the string as a parameter.     
 
 but this time there is no single gadget that allows for arbitrary write.     
 looking at the output from ROPgadget (this time using --depth 20 in hope to find some useful gadgets)     
@@ -68,3 +70,6 @@ exploit+=p64(STR_ADDR)
 exploit+=p64(CALL_SYSTEM)
 
 ```
+      
+![ending](https://user-images.githubusercontent.com/60041914/78301739-35418880-7542-11ea-9f3a-8691f7332b5c.png)
+     
