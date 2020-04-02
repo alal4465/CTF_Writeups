@@ -16,7 +16,7 @@ we are granted with a list of bad chars when we execute the binary.
 when checking out the gadgets we should look for ways to bypass this constraint.    
 it's time to get creative.     
 looking around I find these gadgets useful:  
-```nasm
+```assembly_x86
 0x0000000000400b30 : xor byte ptr [r15], r14b ; ret
 0x0000000000400b40 : pop r14 ; pop r15 ; ret
 0x0000000000400b39 : pop rdi ; ret
