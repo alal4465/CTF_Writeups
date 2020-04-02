@@ -18,7 +18,7 @@ what we can do instead is jump to the PLT.
     
  running ROPgadget we get:   
  ```nasm
- 0x0000000000401ab0 : pop rdi  pop rsi  pop rdx  ret
+ 0x0000000000401ab0 : pop rdi, pop rsi, pop rdx, ret
  ```
  we can write a ROP chain based on that.   
  ```python
