@@ -14,7 +14,7 @@ so our goal is clear. we need to craft a rop chain that puts the address of "cat
 in edi and calls system.          
 using ROPgadget we find a useful gadget:
 ```nasm
-0x0000000000400883 : pop rdi ; ret
+0x0000000000400883 : pop rdi , ret
 ```
 and craft a rop chain with it:    
 ```python
