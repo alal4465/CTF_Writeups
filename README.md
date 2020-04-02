@@ -1,2 +1,2 @@
 # CTF_Writeups
-Just some CTF writeups. nothing fancy.
+Just some Wargame/CTF writeups. nothing fancy.
