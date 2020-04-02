@@ -79,7 +79,8 @@ stage2+=p64(0x14e) # add ret2win offset
 stage2+=p64(ADD_RAX_RBP)
 stage2+=p64(CALL_RAX) # call ret2win
  ```
- running the script...     
+ combining both stages into one script...     
+ running it...     
  ![done](https://user-images.githubusercontent.com/60041914/78302547-ab92ba80-7543-11ea-9f6d-f234c7587246.png)
       
 nice! it works!     
