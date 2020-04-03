@@ -1,6 +1,6 @@
 # ret2win-64bit
 this challange is the very first one in the "ROP Emporium" series. 
-it's a basic return pointer overwrite without any tricks.    
+it's a basic return pointer overwrite to change execution flow.    
    
 ![Screenshot from 2020-04-02 11-19-39-edited](https://user-images.githubusercontent.com/60041914/78273124-14177280-7517-11ea-8fca-1f42421d4b38.png)
 
