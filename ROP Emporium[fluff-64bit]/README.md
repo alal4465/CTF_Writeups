@@ -20,7 +20,7 @@ these gadgets seem interesting:
 #0x0000000000400840 : xchg r11, r10 ; pop r15 ; mov r11d, 0x602050 ; ret
 ```
    
-using these gadgets, my plan was:
+using these gadgets, my plan was:    
 1.empty r11("xor r11, r11")      
 2.set r12 to write adress    
 3.xor r11 with r12 (r11 is zero so it should set it to r12)      
