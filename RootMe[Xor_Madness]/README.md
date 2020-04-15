@@ -115,7 +115,7 @@ so we can calculate our first char!
 >>> chr(0x54 ^ 0x82 ^ 0xF2)
 '$'
 ```
-the other checking fuctions do preety much the same thing with diffrent hard-coded values.      
+the other checking fuctions do pretty much the same thing with diffrent hard-coded values.      
 we can calculate the password:       
 ```python
 >>> passwd = [0x82^0xf2^0x54,0x67....
