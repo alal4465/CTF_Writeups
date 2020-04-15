@@ -122,4 +122,3 @@ we can calculate the password:
 >>> "".join([chr(i) for i in passwd])
 '#censored#'
 ```
-```
