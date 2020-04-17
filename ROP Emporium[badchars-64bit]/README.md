@@ -7,7 +7,7 @@ this time we have to deal with badchars.
 badchars are characters that will not appear in memory the way we expect them to     
 and therefore will cause unexpected behaviour.    
      
-for example: a null byte is the most common bad char as it will usually(not in this challange though) terminate strings. 
+for example: a null byte is the most common bad char as it will usually(not in this challange though) terminate our input. 
     
 we are granted with a list of bad chars when we execute the binary. 
     
