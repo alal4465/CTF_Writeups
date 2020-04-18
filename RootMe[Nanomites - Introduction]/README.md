@@ -84,7 +84,7 @@ mov     [rbp+i], 0
 jmp     loc_40084A
 ```
 So after looking at the validation algorithm for about 30 minutes I realised it could easily be bypassed.      
-A character from our input is compared to the char calculated from the algorithm so we can jump set a breakpoint there and compare it.         
+A character from our input is compared to the char calculated from the algorithm so we can set a breakpoint there and compare it.         
 ```nasm
 mov     rax, [rbp+regs.rax] ; rax contains byte from input
 cmp     rdx, rax        
