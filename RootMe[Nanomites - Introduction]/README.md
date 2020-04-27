@@ -96,7 +96,7 @@ mov     [rbp+regs.eflags], rax ; sets ZF
 after that another ptrace call will be made to modify the childs ZF and then back to waiting for an exception.          
 we can write a simple script using r2pipe to carve out the flag.         
 
-```zsh
+```console
 root@kali:~/CTF/crackmes# python grab_flag.py 
 Process with PID 1821 started...
 ...
