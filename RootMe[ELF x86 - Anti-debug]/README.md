@@ -122,7 +122,7 @@ xor_key = 0xfc
 print "".join([chr(0xfc ^ ch) for ch in byte_arr ])
 ```
 trying it on the binary...            
-```zsh
+```console
 root@kali:~/CTF/crackmes# ./ch13 
 Enter the password: #censored#
 Gratz, this is the good password !
