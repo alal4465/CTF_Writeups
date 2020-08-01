@@ -89,7 +89,7 @@ cdqe
 mov     eax, [rdx+rax*4]; arr[y*7 + x] == 1
 cmp     eax, 1
 ```
-Because the y value is multiplied by 7 it is clear the array is 7xn.
+Because the y value is multiplied by 7 it is clear the array is 7xN.
 A simple script in python to print the array in format:
 ```python
 import re
