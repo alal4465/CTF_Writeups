@@ -14,7 +14,7 @@ call    _Z6Step_2PA7_ii
 After staring at this function, it is clear this array represents 
 some sort of maze through which we move by controlling x and y values.
 The maze ends at the coordinate (6,6) and the values are 1's and 0's.
-1's can be walked on while 0's can not.
+1's can be walked through while 0's can not.
                       
 The array dumped through radare2:               
 ```asm
