@@ -1,5 +1,5 @@
 # Maze[rev]
-Maze is challange in the reversing category from UNCTF-2019.
+Maze was a challange in the reversing category from UNCTF-2019.
 ```console
 root@kali:~/CTF/WMCTF/easy_maze# ./easy_Maze 
 Please help me out!
