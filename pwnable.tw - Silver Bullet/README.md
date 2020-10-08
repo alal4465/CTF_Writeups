@@ -11,4 +11,142 @@ root@kali:~/CTF/pwnable_tw# checksec ./silver_bullet
     NX:       NX enabled
     PIE:      No PIE (0x8048000)
 ```
+## The binary:
+The binary is without PIE and stack canary but with full relro and NX.
+                       
+You are tasked with fighting a werewolf               
+(winning won't get you a shell, it's only a cover story).          
+                       
+#### You have 4 options:
+1. Create a silver bullet by describing it              
+2. Powering up your bullet by appending a description              
+3. Fight the werewolf                   
+4. Quit the app               
+                  
+## Under the scenes:
+The bullet is just a buffer on the stack of length 0x30 which is memset to all zeros.                  
+The bullet's 'power' is really just the result of strlen of the buffer.           
+It just so happens that the bullet's power is stored on the stack right after the bullet buffer.            
+                     
+                          
+### Creating a bullet:
+```console
++++++++++++++++++++++++++++
+       Silver Bullet       
++++++++++++++++++++++++++++
+ 1. Create a Silver Bullet 
+ 2. Power up Silver Bullet 
+ 3. Beat the Werewolf      
+ 4. Return                 
++++++++++++++++++++++++++++
+Your choice :1
+Give me your description of bullet :it's a damn nice bullet
+Your power is : 23
+```
+Creating a bullet is filling the buffer of 0x30 length with user input,                     
+And updating the length variable that is on the stack next to the bullet buf:           
+```nasm
+mov     eax, [ebp+bullet_buf]
+push    30h
+push    eax
+call    read_input ; read input to bullet buffer
+add     esp, 8
+mov     eax, [ebp+bullet_buf]
+push    eax
+call    strlen ; calculate it's length
+add     esp, 4
+mov     [ebp+len], eax
+...
+mov     eax, [ebp+bullet_buf]
+mov     edx, [ebp+len]
+mov     [eax+30h], edx ; place the length (or 'power' i guess) immediately after the buffer
+```
+                  
+                   
+### Power up the bullet:
+```console
++++++++++++++++++++++++++++
+       Silver Bullet       
++++++++++++++++++++++++++++
+ 1. Create a Silver Bullet 
+ 2. Power up Silver Bullet 
+ 3. Beat the Werewolf      
+ 4. Return                 
++++++++++++++++++++++++++++
+Your choice :2
+Give me your another description of bullet :it's also pink
+Your new power is : 37
+Enjoy it !
+```
+                       
+Powering up the bullet is merely adding a description with strncat.            
+               
+The length of the max description to add is calculated such:         
+added description length = 0x30 - current_power             
+(That is if the power level that is stored on the stack is less then 0x30)           
+```nasm
+mov     eax, [ebp+bullet_buf]
+mov     eax, [eax+30h] ; current power
+mov     edx, 30h
+sub     edx, eax
+mov     eax, edx ; leftover length = 0x30 - current power
+push    eax             
+lea     eax, [ebp+local_buf]
+push    eax
+call    read_input ; read an addition description
+add     esp, 8
+mov     eax, [ebp+bullet_buf]
+mov     eax, [eax+30h]
+mov     edx, 30h
+sub     edx, eax
+mov     eax, [ebp+bullet_buf]
+push    edx
+lea     edx, [ebp+local_buf]
+push    edx
+push    eax
+call    strncat ; append it to the bullet buf
+add     esp, 0Ch
+lea     eax, [ebp+local_buf]
+push    eax
+call    strlen ; calculate new 'power'
+add     esp, 4
+mov     edx, eax
+mov     eax, [ebp+bullet_buf]
+mov     eax, [eax+30h]
+add     eax, edx
+mov     [ebp+new_power], eax
+push    [ebp+new_power]
+push    offset aYourNewPowerIs ; "Your new power is : %u\n"
+call    printf
+add     esp, 8
+mov     eax, [ebp+bullet_buf]
+mov     edx, [ebp+new_power]
+mov     [eax+30h], edx ; place the new power after the bullet buffer.
+```
+                
+### Fighting the werewolf:
+```console
+Your choice :3
+>----------- Werewolf -----------<
+ + NAME : Gin
+ + HP : 2147483647
+>--------------------------------<
+Try to beat it .....
+Sorry ... It still alive !!
 
+...
+
+Your choice :3
+>----------- Werewolf -----------<
+ + NAME : Gin
+ + HP : 2147483610
+>--------------------------------<
+Try to beat it .....
+Sorry ... It still alive !!
+```
+             
+Fighting the werewolf is just subtracting your power from the werewolf HP.                  
+When the werewolf dies, main returns.                          
+## Bug:
+There is a subtle off-by-one bug caused by strncat.             
+From strncat's man page:              
