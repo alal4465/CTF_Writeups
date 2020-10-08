@@ -150,3 +150,11 @@ When the werewolf dies, main returns.
 ## Bug:
 There is a subtle off-by-one bug caused by strncat.             
 From strncat's man page:              
+> "If src contains n or more bytes, strncat() writes n+1 bytes to dest (n from src plus the terminating null byte).
+> Therefore,the size of dest must be at least strlen(dest)+n+1"                  
+                   
+And this is the exact bug in play here. (probably shouldv'e read the man page eh?)         
+                 
+Because of this, if our appended description and original description, when added, are of exactly 0x30 length, the 'power'\length buffer on the stack after it is overwritten with 0 (terminating null-byte) and allows to add 0x30 more characters and corrupt into the stack.                
+         
+## Exploitation:
